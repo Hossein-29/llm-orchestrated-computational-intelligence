@@ -18,6 +18,7 @@ client = openai.OpenAI(
 
 class Model(Enum):
     GLM_4_7 = "z-ai/glm-4.7"
+    GPT_OSS = "openai/gpt-oss-120b"
 
 def get_chat_completion(model: str, messages: list[dict], max_tokens=500) -> str:
     response = client.chat.completions.create(
