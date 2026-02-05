@@ -123,7 +123,7 @@ def parse_problem(problem_input: str) -> dict:
                 {"role": "user", "content": f"Analyze the following problem and parse it {problem_input}"}
             ], 
             Answer,
-            max_tokens=500
+            max_tokens=1000,
         )
     
     return resp.model_dump()
