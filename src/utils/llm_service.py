@@ -47,7 +47,6 @@ def get_chat_completion_structured(model: str, messages: list[dict], response_fo
         temperature=0.0,
         max_tokens=max_tokens,
     )
-
     content = response.choices[0].message.content
     data = json.loads(content)
     return response_format(**data)
