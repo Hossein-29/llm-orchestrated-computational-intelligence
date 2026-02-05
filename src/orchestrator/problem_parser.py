@@ -5,7 +5,6 @@ Extracts problem type, size, constraints from user input.
 """
 from pydantic import BaseModel,Field
 
-from typing import Dict, Any
 from src.utils import llm_service
 
 PROBLEM_DETAILS={
@@ -107,7 +106,7 @@ def parse_problem(problem_input: str) -> dict:
     #### OUTPUT STRUCTURE:
     {{
         "problem_type": "TSP",
-        details:{{
+        content:{{
             - n_cities: 52 
             - known_optimal: 420
             - distance_matrix: Provided as a symmetric distance matrix
