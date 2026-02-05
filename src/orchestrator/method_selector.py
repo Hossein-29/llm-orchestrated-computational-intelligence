@@ -53,8 +53,9 @@ METHOD_PARAMETERS = {
         "population_size": "int (default: 100)",
         "crossover_rate": "float (default: 0.8)",
         "mutation_rate": "float (default: 0.1)",
-        "selection": "str (options: tournament, roulette)",
         "generations": "int (default: 500)",
+        "elitism": "int (default: 2)",
+        "encoding": "str (default: 'permutation', options: 'permutation' for TSP/combinatorial, 'continuous' for function optimization)",
     },
     "pso": {
         "n_particles": "int (default: 50)",
@@ -191,7 +192,7 @@ def select_method(problem_info: dict, model: str = Model.GLM_4_7.value) -> dict:
         model=model,
         messages=messages,
         response_format=MethodSelection,
-        max_tokens=1000,
+        max_tokens=2000,
     )
     
     # 3. Validate selected method exists
