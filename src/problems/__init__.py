@@ -18,14 +18,15 @@ def load_problem(problem_info: dict):
     """
     problem_type = problem_info.get("problem_type", "").lower()
     
+    params_dict = problem_info["content"]
     if problem_type == "tsp":
-        return TSPProblem(problem_info)
+        return TSPProblem(params_dict)
     elif problem_type == "optimization":
-        return OptimizationProblem(problem_info)
+        return OptimizationProblem(params_dict)
     elif problem_type == "classification":
-        return ClassificationProblem(problem_info)
+        return ClassificationProblem(params_dict)
     elif problem_type == "clustering":
-        return ClusteringProblem(problem_info)
+        return ClusteringProblem(params_dict)
     else:
         raise ValueError(f"Unknown problem type: {problem_type}")
 
