@@ -23,7 +23,9 @@ def compute_metrics(result: dict, problem_info: dict) -> dict:
     """
     problem_type = problem_info.get("problem_type", "").lower()
     
-    if problem_type in ["tsp", "optimization"]:
+    if problem_type == "tsp":
+        return compute_tsp_metrics(result, problem_info)
+    if problem_type == "optimization":
         return compute_optimization_metrics(result, problem_info)
     elif problem_type == "classification":
         return compute_classification_metrics(result, problem_info)
@@ -32,6 +34,36 @@ def compute_metrics(result: dict, problem_info: dict) -> dict:
     else:
         raise ValueError(f"Unknown problem type: {problem_type}")
 
+def compute_tsp_metrics(result:dict, problem_info:dict)->dict:
+
+    optimal_length=problem_info["content"]["known_optimal"]
+    best_found_length=result["best_solution"]
+    history=np.array(result["convergence_history"])
+    
+    metrics=dict()
+
+    metrics["tour_length"]=best_found_length
+
+    metrics["gap_to_optimal"]=(best_found_length-optimal_length)*100/optimal_length
+
+    metrics["computation_time"]=result["computation_time"]
+
+    metrics["success_rate"]=100 #temporary
+
+
+    initial_error = history[0]
+    final_error = history[-1]
+    
+    target_error = initial_error - 0.9 * (initial_error - final_error)
+    
+    convergence_indices = np.where(history <= target_error)[0]
+    if len(convergence_indices) > 0:
+        metrics["convergence_speed"] = int(convergence_indices[0])
+    else:
+        metrics["convergence_speed"] = len(history)
+
+
+    return metrics
 
 def compute_optimization_metrics(result: dict, problem_info: dict) -> dict:
     """

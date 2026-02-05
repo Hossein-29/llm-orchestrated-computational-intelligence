@@ -10,8 +10,8 @@ from src.utils import llm_service
 
 PROBLEM_DETAILS={
     "TSP": {
-        "cities":" int is the number of cities provided by problem",
-        "optimal_path":"int is the optimal length of the path optimal path of the problem",
+        "n_cities":" int is the number of cities provided by problem",
+        "known_optimal":"int is the optimal length of the path optimal path of the problem",
         "distance_matrix":"list the matrix determining the distance of each two cities",
         "objective":"str the objective the user is seeking in the problem and should be solved",
         "time_limit":"float the time limitation that the solution provided shouldn't exceed",
@@ -108,8 +108,8 @@ def parse_problem(problem_input: str) -> dict:
     {{
         "problem_type": "TSP",
         details:{{
-            - cities: 52 
-            - optimal_path: 420
+            - n_cities: 52 
+            - known_optimal: 420
             - distance_matrix: Provided as a symmetric distance matrix
             - objective: Minimize the total tour distance
             - time_limit: 90.0
