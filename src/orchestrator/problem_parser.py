@@ -14,7 +14,8 @@ PROBLEM_DETAILS={
         "distance_matrix":"list the matrix determining the distance of each two cities",
         "objective":"str the objective the user is seeking in the problem and should be solved",
         "time_limit":"float the time limitation that the solution provided shouldn't exceed",
-        "priority": "str preferences of the user about accuracy of the solution and speed of the solution"
+        "priority": "str preferences of the user about accuracy of the solution and speed of the solution",
+        "dataset_name":"str name of the dataset for the problem if user has provided the name of the dataset instead of distance_matrix directly",
     },
     "Optimization": {
         "hidden_layers": "list[int] (default: [64, 32])",
@@ -113,6 +114,7 @@ def parse_problem(problem_input: str) -> dict:
             - objective: Minimize the total tour distance
             - time_limit: 90.0
             - priority: not_specified
+            - dataset_name: not_specified
         }}
     }}
     """

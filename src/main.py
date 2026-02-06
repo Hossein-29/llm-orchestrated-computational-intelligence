@@ -35,10 +35,15 @@ def run_pipeline(problem_input: str) -> dict:
     """
     # Step 1: Parse problem input
     problem_info = parse_problem(problem_input)
-    print(problem_info)
+    print("step 1: ",problem_info)
+
+    # Step 1.5: extract data from the data set and add it to the problem_info
+    dataset_loader(problem_info)
+    print("step 1.5: ",problem_info)
+
     # Step 2 & 3: LLM Analysis and Method Selection
     selection = select_method(problem_info)
-    print(selection)
+    print("step 2: ",selection)
     # Step 3: Configure parameters
     # parameters = configure_parameters(selection, problem_info)
     
