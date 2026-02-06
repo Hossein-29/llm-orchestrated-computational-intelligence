@@ -8,7 +8,7 @@ Generates plots for:
 """
 
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 def plot_convergence(
     convergence_history: list,
@@ -28,7 +28,14 @@ def plot_convergence(
     # 2. Plot fitness vs iteration
     # 3. Add labels and title
     # 4. Save or display
-    raise NotImplementedError("plot_convergence not yet implemented")
+
+    plt.figure(figsize=(10, 5))
+    plt.plot(convergence_history)
+    plt.xlabel('Iteration')
+    plt.ylabel('Best Tour Length')
+    plt.title('ACO Convergence for TSP')
+    plt.grid(True)
+    plt.show()
 
 
 def plot_comparison(
