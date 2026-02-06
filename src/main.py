@@ -35,33 +35,33 @@ def run_pipeline(problem_input: dict) -> dict:
     """
     # Step 1: Parse problem input
     problem_info = parse_problem(problem_input)
-    
+    print(problem_info)
     # Step 2 & 3: LLM Analysis and Method Selection
     selection = select_method(problem_info)
-    
+    print(selection)
     # Step 3: Configure parameters
-    parameters = configure_parameters(selection, problem_info)
+    # parameters = configure_parameters(selection, problem_info)
     
     # Step 4: Execute method
     method = get_method(selection["selected_method"])
     problem = load_problem(problem_info)
-    result = method.run(problem, parameters)
-    
+    result = method.run(problem, selection["parameters"])
+    print(result)
     # Step 5: Evaluation
     metrics = compute_metrics(result, problem_info)
     plot_convergence(result.get("convergence_history", []))
-    
+    print(metrics)
     # Step 6: Feedback to LLM
-    interpretation = interpret_results(result, metrics, problem_info)
-    
+    interpretation = interpret_results(result, selection, metrics, problem_info)
+    print(interpretation)
     # Step 7: Recommendations
-    recommendations = generate_recommendations(interpretation, problem_info)
+    # recommendations = generate_recommendations(interpretation, problem_info)
     
     return {
         "result": result,
         "metrics": metrics,
         "interpretation": interpretation,
-        "recommendations": recommendations,
+        # "recommendations": recommendations,
     }
 
 
