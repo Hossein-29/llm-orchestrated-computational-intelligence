@@ -36,9 +36,9 @@ def compute_metrics(result: dict, problem_info: dict) -> dict:
 
 def compute_tsp_metrics(result:dict, problem_info:dict)->dict:
 
-    optimal_length=problem_info["content"]["known_optimal"]
-    best_found_length=result["best_solution"]
-    history=np.array(result["convergence_history"])
+    optimal_length=float(problem_info["content"]["known_optimal"])
+    best_found_length=float(result["best_fitness"])
+    history=result["convergence_history"]
     
     metrics=dict()
 
