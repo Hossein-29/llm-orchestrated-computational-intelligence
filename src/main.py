@@ -68,12 +68,30 @@ def run_pipeline(problem_input: str) -> dict:
 def main():
     """Entry point for the MetaMind framework."""
     # Example usage - to be replaced with actual problem input
-    example_input = {
-        "problem_type": "optimization",
-        "description": "Example problem",
-        "data": None,
-    }
-    
+    # example_input = {
+    #     "problem_type": "optimization",
+    #     "description": "Example problem",
+    #     "data": None,
+    # }
+    problem_info = """Problem: Traveling Salesman Problem
+    Cities: 10
+    Distance Matrix:
+    [[  0,  29,  82,  46,  68,  52,  72,  42,  51,  55],
+    [ 29,   0,  55,  46,  42,  43,  43,  23,  23,  31],
+    [ 82,  55,   0,  68,  46,  55,  23,  43,  41,  29],
+    [ 46,  46,  68,   0,  82,  15,  72,  31,  62,  42],
+    [ 68,  42,  46,  82,   0,  74,  23,  52,  21,  46],
+    [ 52,  43,  55,  15,  74,   0,  61,  23,  55,  31],
+    [ 72,  43,  23,  72,  23,  61,   0,  42,  23,  31],
+    [ 42,  23,  43,  31,  52,  23,  42,   0,  33,  15],
+    [ 51,  23,  41,  62,  21,  55,  23,  33,   0,  29],
+    [ 55,  31,  29,  42,  46,  31,  31,  15,  29,   0]]
+    Objective: Minimize total tour distance
+    Time Limit: 40 seconds
+    Priority: Solution quality over speed
+    known optimal: 240
+    """
+    print(run_pipeline(problem_info))
     print("MetaMind Framework")
     print("==================")
     print("Provide a problem input to run the pipeline.")
