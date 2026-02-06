@@ -21,6 +21,7 @@ from src.methods import get_method
 from src.problems import load_problem
 from src.evaluation.metrics import compute_metrics
 from src.evaluation.visualization import plot_convergence
+from src.datasets.dataset_loader import dataset_loader
 
 
 def run_pipeline(problem_input: str) -> dict:
