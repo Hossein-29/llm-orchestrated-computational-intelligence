@@ -23,7 +23,7 @@ from src.evaluation.metrics import compute_metrics
 from src.evaluation.visualization import plot_convergence
 
 
-def run_pipeline(problem_input: dict) -> dict:
+def run_pipeline(problem_input: str) -> dict:
     """
     Run the complete MetaMind pipeline.
     
