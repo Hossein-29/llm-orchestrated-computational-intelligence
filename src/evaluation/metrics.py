@@ -8,7 +8,13 @@ Metrics for different problem types:
 """
 
 import numpy as np
-
+from sklearn.metrics import (
+    silhouette_score, 
+    davies_bouldin_score, 
+    calinski_harabasz_score,
+    adjusted_rand_score, 
+    normalized_mutual_info_score
+)
 
 def compute_metrics(result: dict, problem_info: dict) -> dict:
     """
@@ -111,7 +117,32 @@ def compute_clustering_metrics(result: dict, problem_info: dict) -> dict:
     - inertia: Within-cluster sum of squares
     """
     # TODO: Implement clustering metrics
-    raise NotImplementedError("compute_clustering_metrics not yet implemented")
+    X = result.get("data")
+    labels = result.get("labels")
+    true_labels = result.get("true_labels")
+    
+    metrics = {}
+    
+    if len(set(labels)) > 1:
+        metrics["silhouette_score"] = silhouette_score(X, labels)
+        metrics["davies_bouldin_index"] = davies_bouldin_score(X, labels)
+        metrics["calinski_harabasz_index"] = calinski_harabasz_score(X, labels)
+    else:
+        metrics["silhouette_score"] = 0
+        metrics["error"] = "Only one cluster found; internal metrics N/A."
+
+
+    metrics["inertia"] = result.get("inertia", "Not provided by method")
+    
+    if true_labels is not None:
+        metrics["adjusted_rand_index"] = adjusted_rand_score(true_labels, labels)
+        
+        metrics["nmi"] = normalized_mutual_info_score(true_labels, labels)
+    else:
+        metrics["adjusted_rand_index"] = "N/A (No true labels provided)"
+        metrics["nmi"] = "N/A (No true labels provided)"
+
+    return metrics
 
 
 def statistical_analysis(results_list: list) -> dict:
