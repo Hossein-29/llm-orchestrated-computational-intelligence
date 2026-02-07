@@ -116,7 +116,6 @@ def compute_clustering_metrics(result: dict, problem_info: dict) -> dict:
     - normalized_mutual_info: Information shared with true labels (if available)
     - inertia: Within-cluster sum of squares
     """
-    # TODO: Implement clustering metrics
     X = result.get("data")
     labels = result.get("labels")
     true_labels = result.get("true_labels")
