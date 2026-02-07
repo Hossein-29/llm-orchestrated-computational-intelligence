@@ -11,11 +11,12 @@ PROBLEM_DETAILS={
     "TSP": {
         "n_cities":" int is the number of cities provided by problem",
         "known_optimal":"int is the optimal length of the path optimal path of the problem",
-        "distance_matrix":"list the matrix determining the distance of each two cities",
+        "data_source":"three options: 1_ list the exact distance matrix that is provided by user"\
+            "2_ str MUST be the word \"generated\" if user has prompted to generate"\
+            "3_ str name of the dataset. Options are \"eil51\" or \"berlin52\" or \"kroa100\"",
         "objective":"str the objective the user is seeking in the problem and should be solved",
         "time_limit":"float the time limitation that the solution provided shouldn't exceed",
         "priority": "str preferences of the user about accuracy of the solution and speed of the solution",
-        "dataset_name":"str name of the dataset for the problem if user has provided the name of the dataset instead of distance_matrix directly",
     },
     "Optimization": {
         "dataset_name":"str name of the dataset for the problem if user has provided the name of the dataset instead of distance_matrix directly",
@@ -112,11 +113,10 @@ def parse_problem(problem_input: str) -> dict:
         content:{{
             - n_cities: 52 
             - known_optimal: 240
-            - distance_matrix: Provided as a symmetric distance matrix
+            - data_source: berlin52
             - objective: Minimize the total tour distance
             - time_limit: 90.0
             - priority: not_specified
-            - dataset_name: berlin52
         }}
     }}
     #### INPUT for Clustering:
