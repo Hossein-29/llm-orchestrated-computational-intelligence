@@ -13,9 +13,7 @@ This module implements the 7-step pipeline:
 
 from src.orchestrator.problem_parser import parse_problem
 from src.orchestrator.method_selector import select_method
-from src.orchestrator.parameter_configurator import configure_parameters
 from src.orchestrator.result_interpreter import interpret_results
-from src.orchestrator.recommendation_engine import generate_recommendations
 
 from src.methods import get_method
 from src.problems import load_problem
@@ -34,13 +32,14 @@ def run_pipeline(problem_input: str) -> dict:
     Returns:
         Dictionary containing results, analysis, and recommendations.
     """
+
     # Step 1: Parse problem input
     problem_info = parse_problem(problem_input)
     print("step 1: ",problem_info)
 
     # Step 1.5: extract data from the data set and add it to the problem_info
-    dataset_loader(problem_info)
-    print("step 1.5: ",problem_info)
+    problem_data=dataset_loader(problem_info)
+    print("step 1.5: ",problem_data,problem_info)
 
     # Step 2 & 3: LLM Analysis and Method Selection
     selection = select_method(problem_info)
@@ -50,7 +49,7 @@ def run_pipeline(problem_input: str) -> dict:
     
     # Step 4: Execute method
     method = get_method(selection["selected_method"])
-    problem = load_problem(problem_info)
+    problem = load_problem(problem_info, problem_data)
     result = method.run(problem, selection["parameters"])
     print(result)
     # Step 5: Evaluation

@@ -6,7 +6,7 @@ from src.problems.classification import ClassificationProblem
 from src.problems.clustering import ClusteringProblem
 
 
-def load_problem(problem_info: dict):
+def load_problem(problem_info: dict, problem_data):
     """
     Load and initialize a problem based on problem info.
     
@@ -20,13 +20,13 @@ def load_problem(problem_info: dict):
     
     params_dict = problem_info["content"]
     if problem_type == "tsp":
-        return TSPProblem(params_dict)
+        return TSPProblem(params_dict,problem_data)
     elif problem_type == "optimization":
-        return OptimizationProblem(params_dict)
+        return OptimizationProblem(params_dict,problem_data)
     elif problem_type == "classification":
-        return ClassificationProblem(params_dict)
+        return ClassificationProblem(params_dict,problem_data)
     elif problem_type == "clustering":
-        return ClusteringProblem(params_dict)
+        return ClusteringProblem(params_dict,problem_data)
     else:
         raise ValueError(f"Unknown problem type: {problem_type}")
 
