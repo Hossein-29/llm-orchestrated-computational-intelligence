@@ -2,7 +2,6 @@ import numpy as np
 from scipy.spatial.distance import cdist
 import pandas as pd
 from sklearn.datasets import make_blobs
-from src.utils.tsp_solver import solve_tsp_lkh,solve_tsp_exact
 
 DATASET_NAMES=["eil51","berlin52","kroa100","iris","mall customers"]
 
