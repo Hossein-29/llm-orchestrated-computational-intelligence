@@ -29,13 +29,16 @@ PROBLEM_DETAILS={
         "topology": "str (default: 'rectangular', options: rectangular, hexagonal)",
     },
     "Clustering": {
-        "dataset_name":"str name of the dataset for the problem if user has provided the name of the dataset instead of distance_matrix directly",
-        "n_samples": "int number of samples of the dataset if user has provided in input",
-        "features": "list name of the all features if provided by user",
+        "data_source":"three options: 1_ make list of dicts where each dict is one record of user;'s provided data if user has provided the data in prompt"\
+            "2_ str MUST be the word \"generated\" if user has prompted to generate"\
+            "3_ str name of the dataset. Options are \"iris\" or \"mall customer\"",
+        "n_samples": "int number of samples of the dataset if user has provided in input.",
+        "features": "list name of the all features if provided by user.",
         "n_features": "int number of the all features.",
-        "n_clusters": "int number of clusters if provided by user",
-        "use_case": "str description of user's purpose of doing this task",
-        "use_features": "list name of the features user wants to be treated as clustering arguments. Default value is the name of all features",
+        "n_clusters": "int number of clusters if provided by user.",
+        "use_case": "str description of user's purpose of doing this task.",
+        "use_features": "list name of the features user wants to be treated as clustering arguments. Default value is the name of all features.",
+        "cluster_std":"float standard deviation of generated data if provided by user",
     }
 }
 
@@ -126,13 +129,14 @@ def parse_problem(problem_input: str) -> dict:
     {{
         "problem_type": "Clustering",
         content:{{
-            - dataset_name :iris,
+            - data_source :iris,
             - n_samples: 150,
             - features: ["sepal_length","sepal_width","petal_length","petal_width"],
             - n_features: 4,
             - n_clusters: 3,
             - use_case: Validate clustering against known labels,
             - use_features: all,
+            - "cluster_std":not_specified,
         }}
     }}
     #### INPUT for Clustering:
@@ -145,13 +149,34 @@ def parse_problem(problem_input: str) -> dict:
     {{
         "problem_type": "Clustering",
         content:{{
-            - dataset_name :kaggle mall customer,
+            - data_source :mall customer,
             - n_samples: 200,
             - features: ["CustomerID", "Gender", "Age", "Annual_Income", "Spending_Score"],
             - n_features: 5,
             - n_clusters: 5,
             - use_case: not_specified,
             - use_features: ["age","annual_income","spending_score"],
+            - "cluster_std":not_specified,
+        }}
+    }}
+    #### INPUT for Clustering:
+    Source: generate using blobs in scikit learn
+    Samples: 200
+    Features: 11
+    Expected clusters: 6
+    standard deviation for clusters is 3
+    #### OUTPUT STRUCTURE:
+    {{
+        "problem_type": "Clustering",
+        content:{{
+            - data_source :generated,
+            - n_samples: 200,
+            - features: not_specified,
+            - n_features: 11,
+            - n_clusters: 6,
+            - use_case: not_specified,
+            - use_features: not_specified,
+            - "cluster_std": 3,
         }}
     }}
     """
