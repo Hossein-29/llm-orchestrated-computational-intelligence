@@ -18,12 +18,7 @@ PROBLEM_DETAILS={
         "dataset_name":"str name of the dataset for the problem if user has provided the name of the dataset instead of distance_matrix directly",
     },
     "Optimization": {
-        "hidden_layers": "list[int] (default: [64, 32])",
-        "activation": "str (default: 'relu', options: relu, sigmoid, tanh)",
-        "learning_rate": "float (default: 0.001, range: 0.0001-0.01)",
-        "max_epochs": "int (default: 500, range: 100-2000)",
-        "batch_size": "int (default: 32, range: 16-128)",
-        "optimizer": "str (default: 'adam', options: adam, sgd, rmsprop)",
+        "dataset_name":"str name of the dataset for the problem if user has provided the name of the dataset instead of distance_matrix directly",
     },
     "Classification": {
         "map_size": "tuple (default: (10, 10), range: (5,5) to (50,50))",
@@ -34,9 +29,13 @@ PROBLEM_DETAILS={
         "topology": "str (default: 'rectangular', options: rectangular, hexagonal)",
     },
     "Clustering": {
-        "max_iterations": "int (default: 100, range: 50-500)",
-        "threshold": "float (default: 0.0)",
-        "async_update": "bool (default: True)",
+        "dataset_name":"str name of the dataset for the problem if user has provided the name of the dataset instead of distance_matrix directly",
+        "n_samples": "int number of samples of the dataset if user has provided in input",
+        "features": "list name of the all features if provided by user",
+        "n_features": "int number of the all features.",
+        "n_clusters": "int number of clusters if provided by user",
+        "use_case": "str description of user's purpose of doing this task",
+        "use_features": "list name of the features user wants to be treated as clustering arguments. Default value is the name of all features",
     }
 }
 
@@ -101,20 +100,58 @@ def parse_problem(problem_input: str) -> dict:
     6. convert all the given times to **seconds** if they are given in other time units.
 
     ### EXAMPLE INPUT/OUTPUT:
-    #### INPUT:
-    Problem: Traveling Salesman Problem (TSP) Cities: 52 (Instance: berlin52) optimal path is 420 units Data is Provided as a symmetric distance matrix
+    #### INPUT for TSP:
+    Problem: Traveling Salesman Problem (TSP) Cities: 52 (Instance: berlin52) optimal path is 240 units Data is Provided as a symmetric distance matrix
     Objective: Minimize the total tour distance Constraints: The solution must be found within a 90-second time limit
     #### OUTPUT STRUCTURE:
     {{
         "problem_type": "TSP",
         content:{{
             - n_cities: 52 
-            - known_optimal: 420
+            - known_optimal: 240
             - distance_matrix: Provided as a symmetric distance matrix
             - objective: Minimize the total tour distance
             - time_limit: 90.0
             - priority: not_specified
-            - dataset_name: not_specified
+            - dataset_name: berlin52
+        }}
+    }}
+    #### INPUT for Clustering:
+    dataset:iris
+    Samples: 150
+    Features: 4 (sepal length/width, petal length/width)
+    True clusters: 3 (species: setosa, versicolor, virginica)
+    Use: Validate clustering against known labels
+    #### OUTPUT STRUCTURE:
+    {{
+        "problem_type": "Clustering",
+        content:{{
+            - dataset_name :iris,
+            - n_samples: 150,
+            - features: ["sepal_length","sepal_width","petal_length","petal_width"],
+            - n_features: 4,
+            - n_clusters: 3,
+            - use_case: Validate clustering against known labels,
+            - use_features: all,
+        }}
+    }}
+    #### INPUT for Clustering:
+    Source: Kaggle Mall Customer Segmentation
+    Samples: 200
+    Features: 5 (CustomerID, Gender, Age, Annual Income, Spending Score)
+    Use features: Age, Annual Income, Spending Score
+    Expected clusters: 5 customer segments
+    #### OUTPUT STRUCTURE:
+    {{
+        "problem_type": "Clustering",
+        content:{{
+            - dataset_name :kaggle mall customer,
+            - n_samples: 200,
+            - features: ["CustomerID", "Gender", "Age", "Annual_Income", "Spending_Score"],
+            - n_features: 5,
+            - n_clusters: 5,
+            - use_case: not_specified,
+            - use_features: ["age","annual_income","spending_score"],
         }}
     }}
     """
