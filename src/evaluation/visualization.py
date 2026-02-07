@@ -23,17 +23,12 @@ def plot_convergence(
         title: Plot title.
         save_path: Path to save the figure (optional).
     """
-    # TODO: Implement convergence plotting
-    # 1. Create figure with matplotlib
-    # 2. Plot fitness vs iteration
-    # 3. Add labels and title
-    # 4. Save or display
 
     plt.figure(figsize=(10, 5))
     plt.plot(convergence_history)
     plt.xlabel('Iteration')
     plt.ylabel('Best Tour Length')
-    plt.title('ACO Convergence for TSP')
+    plt.title(title)
     plt.grid(True)
     plt.show()
 
